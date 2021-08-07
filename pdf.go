@@ -3,14 +3,25 @@ package immutable
 import (
 	"path"
 
-	"github.com/k0kubun/pp"
+	// "github.com/k0kubun/pp"
 	"github.com/pkg/errors"
 	"github.com/thecodingmachine/gotenberg-go-client/v7"
 )
 
-func generatePDF(cfg *Config) error {
-	pp.Println(cfg)
+const (
+	resultDocumentName = "result.pdf"
+	recordsName        = "records"
+)
 
+func finalResultPath(cfg *Config) string {
+	return path.Join(cfg.ImmutableDir, resultDocumentName)
+}
+
+func recordsResultPath(cfg *Config) string {
+	return path.Join(cfg.ImmutableDir, recordsName)
+}
+
+func generatePDF(cfg *Config) error {
 	c := &gotenberg.Client{Hostname: cfg.Gotenberg.Hostname}
 
 	indexFilename := "index.html"
@@ -29,9 +40,7 @@ func generatePDF(cfg *Config) error {
 
 	req := gotenberg.NewMarkdownRequest(index, markdown)
 
-	resultFilename := path.Join(cfg.ImmutableDir, "result.pdf")
-
-	if err := c.Store(req, resultFilename); err != nil {
+	if err := c.Store(req, finalResultPath(cfg)); err != nil {
 		return errors.WithStack(err)
 	}
 

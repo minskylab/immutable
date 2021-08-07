@@ -9,5 +9,5 @@ type ImmutableRecord struct {
 }
 
 func (ir *ImmutableRecord) RecordLine() string {
-	return ir.Date.String() + " " + ir.CID + " " + ir.PinataPin
+	return ir.Date.Format(time.RFC3339Nano) + " " + ir.CID // + " " + ir.PinataPin
 }

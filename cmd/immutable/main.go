@@ -1,6 +1,8 @@
 package main
 
-import "github.com/minskylab/immutable"
+import (
+	"github.com/minskylab/immutable"
+)
 
 func main() {
 	config, err := immutable.LoadConfigFromFile("./config.yaml")
@@ -8,7 +10,14 @@ func main() {
 		panic(err)
 	}
 
-	if err := immutable.GeneratePDF(config); err != nil {
+	record, err := immutable.NewRecord(config)
+	if err != nil {
 		panic(err)
 	}
+
+	if err := immutable.AddRecordToLogs(config, record); err != nil {
+		panic(err)
+	}
+
+	// pp.Println(record.RecordLine())
 }
