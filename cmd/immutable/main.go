@@ -18,6 +18,4 @@ func main() {
 	if err := immutable.AddRecordToLogs(config, record); err != nil {
 		panic(err)
 	}
-
-	// pp.Println(record.RecordLine())
 }

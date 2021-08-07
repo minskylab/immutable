@@ -1,8 +1,3 @@
----
-metadata:
-  authors: minskylab
----
-
 # DOCUMENT TITLE
 
 ## SUBTITLE 1

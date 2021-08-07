@@ -18,10 +18,11 @@ type PinataConfig struct {
 }
 
 type Config struct {
-	ImmutableDir string          `yaml:"immutableDir"`
-	TemplatesDir string          `yaml:"templatesDir"`
-	Gotenberg    GotenbergConfig `yaml:"gotenberg"`
-	Pinata       PinataConfig    `yaml:"pinata"`
+	ImmutableDir string `yaml:"immutableDir"`
+	TemplatesDir string `yaml:"templatesDir"`
+
+	Gotenberg GotenbergConfig `yaml:"gotenberg"`
+	Pinata    PinataConfig    `yaml:"pinata"`
 }
 
 func LoadConfigFromFile(configPath string) (*Config, error) {

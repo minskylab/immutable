@@ -1,7 +1,9 @@
 package immutable
 
 import (
+	"os"
 	"path"
+	"strings"
 
 	// "github.com/k0kubun/pp"
 	"github.com/pkg/errors"
@@ -21,6 +23,53 @@ func recordsResultPath(cfg *Config) string {
 	return path.Join(cfg.ImmutableDir, recordsName)
 }
 
+// func fileToGotenbergDocument(filename string, filepath string) (gotenberg.Document, error) {
+// 	return gotenberg.NewDocumentFromPath(filename, filepath)
+// }
+
+// list files in directory
+func filesFromDirectory(dir string) ([]string, error) {
+	files, err := os.ReadDir(dir)
+	if err != nil {
+		return nil, errors.WithStack(err)
+	}
+
+	var result []string
+	for _, f := range files {
+		if f.IsDir() {
+			continue
+		}
+
+		result = append(result, f.Name())
+	}
+
+	return result, nil
+}
+
+func obtainMDFiles(cfg *Config) ([]gotenberg.Document, error) {
+	files, err := filesFromDirectory(cfg.TemplatesDir)
+	if err != nil {
+		return nil, errors.WithStack(err)
+	}
+
+	// var result []string
+	documents := []gotenberg.Document{}
+	for _, f := range files {
+		if strings.HasSuffix(strings.ToLower(f), ".md") {
+			filepath := path.Join(cfg.TemplatesDir, f)
+
+			doc, err := gotenberg.NewDocumentFromPath(f, filepath)
+			if err != nil {
+				return nil, errors.WithStack(err)
+			}
+
+			documents = append(documents, doc)
+		}
+	}
+
+	return documents, nil
+}
+
 func generatePDF(cfg *Config) error {
 	c := &gotenberg.Client{Hostname: cfg.Gotenberg.Hostname}
 
@@ -31,14 +80,19 @@ func generatePDF(cfg *Config) error {
 		return errors.WithStack(err)
 	}
 
-	markdownFilename := "DOCUMENT.md"
-	markdownPath := path.Join(cfg.TemplatesDir, markdownFilename)
-	markdown, err := gotenberg.NewDocumentFromPath(markdownFilename, markdownPath)
+	// markdownFilename := "DOCUMENT.md"
+	// markdownPath := path.Join(cfg.TemplatesDir, markdownFilename)
+	// markdown, err := gotenberg.NewDocumentFromPath(markdownFilename, markdownPath)
+	// if err != nil {
+	// 	return errors.WithStack(err)
+	// }
+
+	mdDocuments, err := obtainMDFiles(cfg)
 	if err != nil {
 		return errors.WithStack(err)
 	}
 
-	req := gotenberg.NewMarkdownRequest(index, markdown)
+	req := gotenberg.NewMarkdownRequest(index, mdDocuments...)
 
 	if err := c.Store(req, finalResultPath(cfg)); err != nil {
 		return errors.WithStack(err)

@@ -17,7 +17,3 @@ func NewRecord(config *Config) (*ImmutableRecord, error) {
 
 	return record, nil
 }
-
-// if err := AddRecordToLogs(config, record); err != nil {
-// 	panic(err)
-// }
