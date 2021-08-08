@@ -18,4 +18,8 @@ func main() {
 	if err := immutable.AddRecordToLogs(config, record); err != nil {
 		panic(err)
 	}
+
+	if err := immutable.GenerateNonRootREADME(config); err != nil {
+		panic(err)
+	}
 }

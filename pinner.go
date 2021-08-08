@@ -14,12 +14,9 @@ type PinataResponse struct {
 }
 
 func pinAssetToIPFS(cfg *Config, filepath string) (*PinataResponse, error) {
-	// data, err :=os.ReadFile(filepath)
-	// Create a Resty Client
 	client := resty.New()
 	client = client.SetHostURL("https://api.pinata.cloud")
 
-	// "pinataMetadata"
 	r, err := client.R().
 		EnableTrace().
 		SetHeader("Content-Type", "application/json").
@@ -27,6 +24,7 @@ func pinAssetToIPFS(cfg *Config, filepath string) (*PinataResponse, error) {
 		SetHeader("pinata_api_key", cfg.Pinata.APIKey).
 		SetHeader("pinata_secret_api_key", cfg.Pinata.APISecret).
 		SetFile("file", filepath).
+		// TODO: Add support for metadata (e.g. title, description, tags, etc.).
 		// SetFormData(map[string]string{
 		// 	"pinataMetadata": "{\"name\":\"immutable\"}",
 		// }).
@@ -44,6 +42,7 @@ func pinAssetToIPFS(cfg *Config, filepath string) (*PinataResponse, error) {
 	return pinata, nil
 }
 
+// PinAssetToIPFS pins a file to IPFS and returns the hash of the file.
 func PinDocumentToIPFS(cfg *Config) (*PinataResponse, error) {
 	return pinAssetToIPFS(cfg, finalResultPath(cfg))
 }

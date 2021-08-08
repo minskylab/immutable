@@ -23,10 +23,6 @@ func recordsResultPath(cfg *Config) string {
 	return path.Join(cfg.ImmutableDir, recordsName)
 }
 
-// func fileToGotenbergDocument(filename string, filepath string) (gotenberg.Document, error) {
-// 	return gotenberg.NewDocumentFromPath(filename, filepath)
-// }
-
 // list files in directory
 func filesFromDirectory(dir string) ([]string, error) {
 	files, err := os.ReadDir(dir)
@@ -79,13 +75,6 @@ func generatePDF(cfg *Config) error {
 	if err != nil {
 		return errors.WithStack(err)
 	}
-
-	// markdownFilename := "DOCUMENT.md"
-	// markdownPath := path.Join(cfg.TemplatesDir, markdownFilename)
-	// markdown, err := gotenberg.NewDocumentFromPath(markdownFilename, markdownPath)
-	// if err != nil {
-	// 	return errors.WithStack(err)
-	// }
 
 	mdDocuments, err := obtainMDFiles(cfg)
 	if err != nil {

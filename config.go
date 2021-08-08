@@ -18,6 +18,7 @@ type PinataConfig struct {
 }
 
 type Config struct {
+	DocumentName string `yaml:"documentName"`
 	ImmutableDir string `yaml:"immutableDir"`
 	TemplatesDir string `yaml:"templatesDir"`
 
