@@ -60,10 +60,12 @@ func readRecords(filePath string) ([]ImmutableRecord, error) {
 	return records, nil
 }
 
+// AddRecordToLogs adds a new record to the records file.
 func AddRecordToLogs(cfg *Config, record *ImmutableRecord) error {
 	return appendLineToFile(recordsResultPath(cfg), record.RecordLine())
 }
 
+// ReadSortedRecords reads the records file and returns a sorted by created date, slice of records.
 func ReadSortedRecords(cfg *Config) ([]ImmutableRecord, error) {
 	records, err := readRecords(recordsResultPath(cfg))
 	if err != nil {

@@ -1,5 +1,6 @@
 package immutable
 
+// NewRecord returns a new immutable record with the given config.
 func NewRecord(config *Config) (*ImmutableRecord, error) {
 	if err := GeneratePDF(config); err != nil {
 		panic(err)

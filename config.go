@@ -14,22 +14,35 @@ type GotenbergConfig struct {
 type PinataConfig struct {
 	APIKey    string `yaml:"APIKey"`
 	APISecret string `yaml:"APISecret"`
-	JWT       string `yaml:"JWT"`
+	// JWT       string `yaml:"JWT"`
+}
+
+type DocumentConfig struct {
+	Title          string `yaml:"title"`
+	OutputFilename string `yaml:"outputFilename"`
 }
 
 type Config struct {
-	DocumentName string `yaml:"documentName"`
+	Document DocumentConfig `yaml:"document"`
+
 	ImmutableDir string `yaml:"immutableDir"`
 	TemplatesDir string `yaml:"templatesDir"`
 
 	Gotenberg GotenbergConfig `yaml:"gotenberg"`
 	Pinata    PinataConfig    `yaml:"pinata"`
+
+	Production bool `yaml:"production"`
 }
 
 func LoadConfigFromFile(configPath string) (*Config, error) {
 	config := Config{
+		Document: DocumentConfig{
+			Title:          "Immutable Document",
+			OutputFilename: "document.pdf",
+		},
 		ImmutableDir: ".immutable",
 		TemplatesDir: "document",
+		Production:   false,
 	}
 
 	data, err := os.ReadFile(configPath)
