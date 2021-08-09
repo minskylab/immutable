@@ -1,0 +1,11 @@
+document:
+  title: Immutable Document
+  filename: document.pdf
+production: false
+immutableDir: .immutable
+templatesDir: document
+gotenberg:
+  hostname: YOUR_GOTENBERG_HOSTNAME
+pinata:
+  APIKey: YOUR_PINATA_API_KEY
+  APISecret: YOUR_PINATA_SECRET_KEY

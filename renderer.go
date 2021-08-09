@@ -14,7 +14,7 @@ const (
 )
 
 func finalResultPath(cfg *Config) string {
-	return path.Join(cfg.ImmutableDir, cfg.DocumentFileName)
+	return path.Join(cfg.ImmutableDir, cfg.Document.OutputFilename)
 }
 
 func recordsResultPath(cfg *Config) string {

@@ -8,7 +8,7 @@ This records list is auto-generated based on your document upload records.
 
 {{range .Records}}
 
-### {{.Date}}
+### Revision {{.SerialNumber}} `{{.Date}}`
 
 `cid` {{.CID}}
 `file` [{{.DocumentName}}]({{.DocumentPath}})

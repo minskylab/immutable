@@ -12,11 +12,6 @@ type ImmutableRecord struct {
 	Date time.Time
 }
 
-// RecordLine returns a string representation of the record.
-func (ir *ImmutableRecord) RecordLine() string {
-	return ir.Date.Format(time.RFC3339Nano) + " " + ir.CID
-}
-
 func parseFromLine(line string) (ImmutableRecord, error) {
 	parts := strings.Split(line, " ")
 
@@ -29,4 +24,9 @@ func parseFromLine(line string) (ImmutableRecord, error) {
 		CID:  parts[1],
 		Date: date,
 	}, nil
+}
+
+// RecordLine returns a string representation of the record.
+func (ir *ImmutableRecord) RecordLine() string {
+	return ir.Date.Format(time.RFC3339Nano) + " " + ir.CID
 }
