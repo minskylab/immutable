@@ -12,6 +12,7 @@ type ImmutableRecord struct {
 	Date time.Time
 }
 
+// RecordLine returns a string representation of the record.
 func (ir *ImmutableRecord) RecordLine() string {
 	return ir.Date.Format(time.RFC3339Nano) + " " + ir.CID
 }

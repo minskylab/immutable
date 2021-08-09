@@ -25,6 +25,7 @@ func pinAssetToIPFS(cfg *Config, filepath string) (*PinataResponse, error) {
 		SetHeader("pinata_secret_api_key", cfg.Pinata.APISecret).
 		SetFile("file", filepath).
 		// TODO: Add support for metadata (e.g. title, description, tags, etc.).
+
 		// SetFormData(map[string]string{
 		// 	"pinataMetadata": "{\"name\":\"immutable\"}",
 		// }).

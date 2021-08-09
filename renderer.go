@@ -5,18 +5,16 @@ import (
 	"path"
 	"strings"
 
-	// "github.com/k0kubun/pp"
 	"github.com/pkg/errors"
 	"github.com/thecodingmachine/gotenberg-go-client/v7"
 )
 
 const (
-	resultDocumentName = "result.pdf"
-	recordsName        = "records"
+	recordsName = "records"
 )
 
 func finalResultPath(cfg *Config) string {
-	return path.Join(cfg.ImmutableDir, resultDocumentName)
+	return path.Join(cfg.ImmutableDir, cfg.DocumentFileName)
 }
 
 func recordsResultPath(cfg *Config) string {
@@ -90,6 +88,7 @@ func generatePDF(cfg *Config) error {
 	return nil
 }
 
+// GeneratePDF generates a PDF from the given config.
 func GeneratePDF(cfg *Config) error {
 	return generatePDF(cfg)
 }

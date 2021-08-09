@@ -1,4 +1,4 @@
-# {{.DocumentName}}
+# {{.DocumentTitle}}
 
 This document was uploaded to [IPFS](https://ipfs.io), a distributed and immutable file system.
 

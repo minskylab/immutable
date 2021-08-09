@@ -18,7 +18,9 @@ type PinataConfig struct {
 }
 
 type Config struct {
-	DocumentName string `yaml:"documentName"`
+	DocumentTitle    string `yaml:"documentTitle"`
+	DocumentFileName string `yaml:"documentFileName"`
+
 	ImmutableDir string `yaml:"immutableDir"`
 	TemplatesDir string `yaml:"templatesDir"`
 
@@ -28,8 +30,10 @@ type Config struct {
 
 func LoadConfigFromFile(configPath string) (*Config, error) {
 	config := Config{
-		ImmutableDir: ".immutable",
-		TemplatesDir: "document",
+		DocumentTitle:    "Immutable Document",
+		DocumentFileName: "document.pdf",
+		ImmutableDir:     ".immutable",
+		TemplatesDir:     "document",
 	}
 
 	data, err := os.ReadFile(configPath)

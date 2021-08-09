@@ -47,23 +47,25 @@ func generateREADME(cfg *Config, outputFilepath string) error {
 		rRecords = append(rRecords, ReadmeRecord{
 			CID:          record.CID,
 			Date:         record.Date.Format("Jan 02, 2006 - 15:04:05"),
-			DocumentName: resultDocumentName,
+			DocumentName: cfg.DocumentFileName,
 			DocumentPath: finalResultPath(cfg),
 		})
 	}
 
 	data := &ReadmeData{
-		DocumentName: resultDocumentName,
+		DocumentName: cfg.DocumentFileName,
 		Records:      rRecords,
 	}
 
 	return renderREADME(data, outputFilepath)
 }
 
+// GenerateREADME generates a README document into given filepath.
 func GenerateREADME(cfg *Config, readmeFilepath string) error {
 	return generateREADME(cfg, readmeFilepath)
 }
 
-func GenerateNonRootREADME(cfg *Config) error {
+// GenerateREADMEFile generates a _README.md file.
+func GenerateREADMEFile(cfg *Config) error {
 	return generateREADME(cfg, "_README.md")
 }
