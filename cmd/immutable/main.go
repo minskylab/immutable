@@ -19,7 +19,7 @@ func main() {
 		panic(err)
 	}
 
-	if err := immutable.GenerateNonRootREADME(config); err != nil {
+	if err := immutable.GenerateREADMEFile(config); err != nil {
 		panic(err)
 	}
 }
